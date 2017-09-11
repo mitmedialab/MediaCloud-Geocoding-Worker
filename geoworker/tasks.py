@@ -32,22 +32,24 @@ def _post_tags_from_results(story, results):
         # Add tags for the countries the story is about
         if 'countries' in results['results']['places']['focus']:
             for country in results['results']['places']['focus']['countries']:
-                story_tags.append( mediacloud.api.StoryTag(story['stories_id'],
-                                                           tag_set_name=GEONAMES_TAG_SET_NAME,
-                                                           tag_name=GEONAMES_TAG_PREFIX+str(country['id'])))
+                story_tags.append(mediacloud.api.StoryTag(story['stories_id'],
+                                                          tag_set_name=GEONAMES_TAG_SET_NAME,
+                                                          tag_name=GEONAMES_TAG_PREFIX+str(country['id'])))
                 # logger.debug("  focus country: {} on {}".format(country['name'],story['stories_id']) )
         # Add tags for the states within those countries that the story is about
         if 'states' in results['results']['places']['focus']:
             for state in results['results']['places']['focus']['states']:
-                story_tags.append( mediacloud.api.StoryTag(story['stories_id'],
-                                                           tag_set_name=GEONAMES_TAG_SET_NAME,
-                                                           tag_name=GEONAMES_TAG_PREFIX+str(state['id'])) )
+                story_tags.append(mediacloud.api.StoryTag(story['stories_id'],
+                                                          tag_set_name=GEONAMES_TAG_SET_NAME,
+                                                          tag_name=GEONAMES_TAG_PREFIX+str(state['id'])))
                 # logger.debug("  focus state: {} on {}".format(state['name'],story['stories_id']) )
         if POST_WRITE_BACK:
-            if len(story_tags)>0:
+            if len(story_tags) > 0:
                 results = mc.tagStories(story_tags, clear_others=True)
                 if results['success'] != 1:
                     logger.error("  Tried to push {} story tags to story {}, but only got no success".format(
-                        len(story_tags),story['stories_id']))
+                        len(story_tags), story['stories_id']))
+                else:
+                    logger.info("Story {}: {} tags".format(story['stories_id'], len(story_tags)))
         else:
             logger.info("  in testing mode - not sending sentence tags to MC")
