@@ -54,7 +54,7 @@ logger.info("    queued {} stories in {} seconds ({} already tagged)".format(que
 # and save that we've made progress
 new_app_config = db.apps.find_one({'name': SERVICE_NAME})
 if new_app_config['created_at'] == app_config['created_at']:
-    result = db.services.apps.update_one(
+    result = db.apps.update_one(
         {"name": SERVICE_NAME},
         {
             "$set": {
@@ -63,7 +63,7 @@ if new_app_config['created_at'] == app_config['created_at']:
             "$currentDate": {"lastModified": True}
         }
     )
-    logger.info("  saved to satrt at {} next time".format(last_processed_stories_id))
+    logger.info("  saved to start at {} next time".format(last_processed_stories_id))
 else:
     logger.warn("Job changed underneath worked from {} to {}".format(app_config['query'], new_app_config['query']))
 
