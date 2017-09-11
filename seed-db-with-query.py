@@ -22,13 +22,13 @@ app_config = {
     "retag": True,
 }
 
-existing_app_config = db.services.apps.find_one({'name': SERVICE_NAME})
+existing_app_config = db.apps.find_one({'name': SERVICE_NAME})
 if existing_app_config:
     # need to update the existing app config
-    db.services.apps.delete_many({'name': SERVICE_NAME})
+    db.apps.delete_many({'name': SERVICE_NAME})
     logger.info("Deleting existing {} job in the DB".format(SERVICE_NAME))
 # now to create a new config
-result = db.services.apps.insert_one(app_config)
+result = db.apps.insert_one(app_config)
 
 logger.info("Created a new {} job in the DB".format(SERVICE_NAME))
 logger.debug(app_config)

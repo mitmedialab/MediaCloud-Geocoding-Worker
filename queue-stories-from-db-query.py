@@ -8,7 +8,7 @@ import geoworker.tasks
 
 logger = logging.getLogger(__name__)
 
-app_config = db.services.apps.find_one({'name': SERVICE_NAME})
+app_config = db.apps.find_one({'name': SERVICE_NAME})
 if app_config is None:
     logger.info("No job configured - stopping")
     sys.exit()
@@ -52,7 +52,7 @@ logger.debug("    queued in {} seconds".format(queued_time - text_time))
 logger.info("    queued {} stories in {} seconds ({} already tagged)".format(queued, time.time() - start_time, already_tagged))
 
 # and save that we've made progress
-new_app_config = db.services.apps.find_one({'name': SERVICE_NAME})
+new_app_config = db.apps.find_one({'name': SERVICE_NAME})
 if new_app_config['created_at'] == app_config['created_at']:
     result = db.services.apps.update_one(
         {"name": SERVICE_NAME},

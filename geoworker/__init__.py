@@ -54,6 +54,6 @@ except KeyError:
 try:
     MONGO_URL = os.environ['MONGO_URL']
     logger.info("MONGO_URL: {}".format(MONGO_URL))
-    db = MongoClient(MONGO_URL)
+    db = MongoClient(MONGO_URL)['service-status-db']
 except KeyError:
     logger.error("Missing MONGO_URL environment variable")
