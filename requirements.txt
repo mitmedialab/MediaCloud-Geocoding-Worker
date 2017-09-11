@@ -4,3 +4,4 @@ mediacloud
 raven
 blinker
 mediameter-cliff
+pymongo

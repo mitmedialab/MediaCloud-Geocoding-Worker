@@ -5,9 +5,11 @@ import mediacloud
 from mediameter.cliff import Cliff
 from raven.handlers.logging import SentryHandler
 from raven.conf import setup_logging
+from pymongo import MongoClient
 
 VERSION = "0.1.0"
-DEFAULT_CLIFF_PORT = 8080
+SERVICE_NAME = "Geocoding Worker"
+DEFAULT_CLIFF_PORT = 8080  # tomcat
 
 # setup default file-based logging
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,7 +17,7 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # set up logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-logger.info("Starting up NYT Theme Worker v{}".format(VERSION))
+logger.info("Starting up Geocoding Worker v{}".format(VERSION))
 
 try:
     RABBIT_MQ_URL = os.environ['RABBITMQ_URL']
@@ -48,3 +50,10 @@ try:
     setup_logging(handler)
 except KeyError:
     logger.error("Missing SENTRY_DSN environment variable")
+
+try:
+    MONGO_URL = os.environ['MONGO_URL']
+    logger.info("MONGO_URL: {}".format(MONGO_URL))
+    db = MongoClient(MONGO_URL)
+except KeyError:
+    logger.error("Missing MONGO_URL environment variable")
