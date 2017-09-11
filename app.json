@@ -1,0 +1,4 @@
+{
+  "name": "MediaCloud-Geocoding-Worker",
+  "description": "A service that will pull form a queue of stories with text and tag stories with the the countries they are about (using CLIFF-CLAVIN results)",
+}

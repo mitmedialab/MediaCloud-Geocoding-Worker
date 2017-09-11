@@ -1,0 +1,6 @@
+requests[security]
+celery
+mediacloud
+raven
+blinker
+mediameter-cliff
