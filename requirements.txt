@@ -5,3 +5,4 @@ raven
 blinker
 mediameter-cliff
 pymongo
+flower
