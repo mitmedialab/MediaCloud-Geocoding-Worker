@@ -8,5 +8,10 @@ GEOCODER_VERSION_TAG_SET_ID = 1937
 GEOCODER_VERSION_TAG_SET_NAME = 'geocoder_version'
 
 # The tag applied to any stories processed with CLIFF-CLAVIN v2.3.0
-CLIFF_CLAVIN_2_3_0_TAG_ID = 9353691
-CLIFF_CLAVIN_2_3_0_TAG = 'cliff_clavin_v2.3.0'
+CLIFF_CLAVIN_2_4_1_TAG_ID = 9696677  # the tag that indicates a story was tagged by the CLIFF version 2.4.1
+
+CLIFF_ORGS = 2388
+CLIFF_ORGS_TAG_SET_NAME = 'cliff_organizations'
+
+CLIFF_PEOPLE = 2389
+CLIFF_PEOPLE_TAG_SET_NAME = 'cliff_people'
