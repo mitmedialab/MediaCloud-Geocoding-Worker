@@ -17,7 +17,7 @@ POST_WRITE_BACK = True
 def geocode_from_story_text(self, story):
     # Take in a story with sentences and tag it with labels based on what the model says
     try:
-        results = cliff.parseText(story['story_text'])
+        results = cliff.parse_text(story['story_text'])
         if results['status'] == cliff.STATUS_OK:
             _post_geo_tags_from_results(story, results)
             _post_entity_tags_from_results(story, results)
