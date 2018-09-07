@@ -7,6 +7,8 @@ A service that will pull form a queue of stories with text and tag stories with 
 Dev Installation
 ----------------
 
+Install redis. Then:
+
  1. `virtualenv venv` to create your virtualenv
  2. `source venv/bin/activate` - to activate your virtualenv
  3. `pip install -r requirements.txt` - to install the dependencies
@@ -26,3 +28,5 @@ In another window start up the story fetcher with `python queue-stories-in-topic
 of the topic you want to process),
 
 ### Tagging stories matching a query
+
+Fill in the `app.config` with your query and filter_query, then run `queue-stories-from-query` from a cronjob.
