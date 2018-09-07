@@ -14,7 +14,7 @@ POST_WRITE_BACK = True
 
 
 def clean_tag_label(string):
-    return string.replace(u"\n", u'')
+    return string.replace(u"\n", u'').replace(u"\r", u'')
 
 
 @app.task(serializer='json', bind=True)
