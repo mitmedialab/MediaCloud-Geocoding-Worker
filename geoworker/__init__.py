@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 import mediacloud
-from mediameter.cliff import Cliff
+from cliff.api import Cliff
 from raven.handlers.logging import SentryHandler
 from raven.conf import setup_logging
 
