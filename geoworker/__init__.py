@@ -31,7 +31,7 @@ mc = mediacloud.api.AdminMediaCloud(MC_API_KEY)
 logger.info("MC_API_KEY: {}".format(MC_API_KEY))
 
 CLIFF_URL = config.get('CLIFF_URL')
-cliff = Cliff(CLIFF_URL, 8080)
+cliff = Cliff(CLIFF_URL)
 logger.info("CLIFF_URL: {}".format(CLIFF_URL))
 
 try:
