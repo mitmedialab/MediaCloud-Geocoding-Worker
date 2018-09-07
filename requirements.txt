@@ -1,8 +1,6 @@
-requests[security]
-celery
-mediacloud
-raven
-blinker
-mediameter-cliff
-pymongo
-flower
+requests[security]==2.19.1
+celery[redis]==4.2.0
+mediacloud==3.2.1
+raven==6.9.0
+mediacloud-cliff==2.0.2
+flower==0.9.2
