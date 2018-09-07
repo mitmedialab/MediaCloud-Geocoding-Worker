@@ -15,8 +15,10 @@ SERVICE_NAME = "Geocoding Worker"
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # set up logging
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, filename=os.path.join(base_dir, 'worker.log'),
+                    level=logging.INFO, format='%(asctime)s | %(levelname)s | %(name)s | %(message)s')
 logger = logging.getLogger(__name__)
+logger.info("------------------------------------------------------------------------")
 logger.info("Starting up Geocoding Worker v{}".format(VERSION))
 
 config = get_default_config()
