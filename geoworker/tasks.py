@@ -13,6 +13,10 @@ logger = get_task_logger(__name__)
 POST_WRITE_BACK = True
 
 
+def clean_tag_label(string):
+    return string.replace(u"\n", u'')
+
+
 @app.task(serializer='json', bind=True)
 def geocode_from_story_text(self, story):
     # Take in a story with sentences and tag it with labels based on what the model says
@@ -30,12 +34,16 @@ def _post_entity_tags_from_results(story, results):
     # Add tags for people
     people_tags = []
     for person in results['results']['people']:
-        people_tags.append(mediacloud.api.StoryTag(story['stories_id'], tag_set_name=CLIFF_PEOPLE_TAG_SET_NAME, tag_name=person['name']))
+        people_tags.append(mediacloud.api.StoryTag(story['stories_id'],
+                                                   tag_set_name=CLIFF_PEOPLE_TAG_SET_NAME,
+                                                   tag_name=clean_tag_label(person['name'])))
         logger.debug(u"  person: {} x {}".format(person['name'], person['count']))
     # Add tags for orgs
     org_tags = []
     for org in results['results']['organizations']:
-        org_tags.append(mediacloud.api.StoryTag(story['stories_id'], tag_set_name=CLIFF_ORGS_TAG_SET_NAME, tag_name=org['name']))
+        org_tags.append(mediacloud.api.StoryTag(story['stories_id'],
+                                                tag_set_name=CLIFF_ORGS_TAG_SET_NAME,
+                                                tag_name=clean_tag_label(org['name'])))
         logger.debug(u"  org: {} x {}".format(org['name'], org['count']))
     if POST_WRITE_BACK:
         if len(people_tags) > 0:
@@ -65,15 +73,15 @@ def _post_geo_tags_from_results(story, results):
     if 'countries' in results['results']['places']['focus']:
         for country in results['results']['places']['focus']['countries']:
             geo_tags.append(mediacloud.api.StoryTag(story['stories_id'],
-                                                      tag_set_name=GEONAMES_TAG_SET_NAME,
-                                                      tag_name=GEONAMES_TAG_PREFIX+str(country['id'])))
+                                                    tag_set_name=GEONAMES_TAG_SET_NAME,
+                                                    tag_name=GEONAMES_TAG_PREFIX+str(country['id'])))
             # logger.debug("  focus country: {} on {}".format(country['name'],story['stories_id']) )
     # Add tags for the states within those countries that the story is about
     if 'states' in results['results']['places']['focus']:
         for state in results['results']['places']['focus']['states']:
             geo_tags.append(mediacloud.api.StoryTag(story['stories_id'],
-                                                      tag_set_name=GEONAMES_TAG_SET_NAME,
-                                                      tag_name=GEONAMES_TAG_PREFIX+str(state['id'])))
+                                                    tag_set_name=GEONAMES_TAG_SET_NAME,
+                                                    tag_name=GEONAMES_TAG_PREFIX+str(state['id'])))
             # logger.debug("  focus state: {} on {}".format(state['name'],story['stories_id']) )
     if POST_WRITE_BACK:
         if len(geo_tags) > 0:
