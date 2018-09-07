@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 from celery import Celery
 
-from geoworker import RABBIT_MQ_URL
+from geoworker import BROKER_URL
 
 app = Celery('geoworker',
-             broker=RABBIT_MQ_URL,
+             broker=BROKER_URL,
              include=['geoworker.tasks'])
