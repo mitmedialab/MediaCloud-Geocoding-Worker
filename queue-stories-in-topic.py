@@ -30,7 +30,9 @@ while more_stories:
     story_ids = [str(s['stories_id']) for s in story_page['stories']]
     query = "stories_id:({})".format(" ".join(story_ids))
     stories_with_text = mc.storyList(query, text=True)
-    for s in stories_with_text:
+    stories_to_geocode = [s for s in stories_with_text if s['metadata']['geocoder_version'] is None]
+    logger.info("  fetched {}, queueing {}".format(len(stories_with_text), len(stories_to_geocode)))
+    for s in stories_to_geocode:
         geocode_from_story_text.delay(s)
     # and get ready for the next page
     if 'next' in story_page['link_ids']:
