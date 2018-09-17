@@ -24,8 +24,8 @@ Run the workers in one window by doing: `celery worker -A geoworker -l info`.
 
 ### Tagging all stories in a Topic
 
-In another window start up the story fetcher with `python queue-stories-in-topic.py 1234` (where 1234 is the id 
-of the topic you want to process),
+In another window start up the story fetcher with `python queue-stories-in-topic.py 1234 567789` (where 1234 is the id 
+of the topic you want to process, and 567789 is the timespans_id within that topic),
 
 ### Tagging stories matching a query
 
