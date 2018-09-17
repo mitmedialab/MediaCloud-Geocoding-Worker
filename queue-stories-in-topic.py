@@ -11,7 +11,7 @@ if len(sys.argv) != 3:
     sys.exit()
 
 topic_id = sys.argv[1]
-timespans_id = sys.argv[1]
+timespans_id = sys.argv[2]
 logger.info("Processing topic {}".format(topic_id))
 
 # debug logging
