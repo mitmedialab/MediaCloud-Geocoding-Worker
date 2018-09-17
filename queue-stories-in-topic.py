@@ -21,15 +21,16 @@ total_stories = mc.topicStoryCount(topic_id, timespans_id=timespans_id)['count']
 logger.info("  {} stories".format(total_stories))
 
 # page through stories in topic
+STORIES_PER_PAGE = 500
 link_id = None
 more_stories = True
 while more_stories:
     # grab one page of stories
-    story_page = mc.topicStoryList(topic_id, timespans_id=timespans_id, link_id=link_id, limit=500)
+    story_page = mc.topicStoryList(topic_id, timespans_id=timespans_id, link_id=link_id, limit=STORIES_PER_PAGE)
     # now get the stories with the text
     story_ids = [str(s['stories_id']) for s in story_page['stories']]
     query = "stories_id:({})".format(" ".join(story_ids))
-    stories_with_text = mc.storyList(query, text=True)
+    stories_with_text = mc.storyList(query, text=True, rows=STORIES_PER_PAGE)
     stories_to_geocode = [s for s in stories_with_text if s['metadata']['geocoder_version'] is None]
     logger.info("  fetched {}, queueing {}".format(len(stories_with_text), len(stories_to_geocode)))
     for s in stories_to_geocode:
