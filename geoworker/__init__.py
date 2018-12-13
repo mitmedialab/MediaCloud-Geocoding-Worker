@@ -1,5 +1,4 @@
 import os
-import sys
 import logging
 import mediacloud
 from cliff.api import Cliff
@@ -8,8 +7,7 @@ from raven.conf import setup_logging
 
 from geoworker.config import get_default_config, ConfigException
 
-VERSION = "0.2.0"
-SERVICE_NAME = "Geocoding Worker"
+VERSION = "0.3.0"
 
 # setup default file-based logging
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
